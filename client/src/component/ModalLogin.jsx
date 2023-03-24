@@ -12,11 +12,11 @@ export const Login = (props) => {
   const [_, dispatch] = useContext(UserContext);
 
   const [formLogin, setFormLogin] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
-  const { email, password } = formLogin;
+  const { username, password } = formLogin;
 
   const OnChangeHandler = (e) => {
     setFormLogin({
@@ -81,10 +81,10 @@ export const Login = (props) => {
               <Form.Control
                 className="p-2 mb-3"
                 onChange={OnChangeHandler}
-                name="email"
-                value={email}
-                type="email"
-                placeholder="Email"
+                name="username"
+                value={username}
+                type="text"
+                placeholder="Username"
                 style={{
                   textColor: "#B1B1B1",
                   backgroundColor: "rgba(97, 61, 43, 0.25)",
