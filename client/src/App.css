@@ -160,3 +160,7 @@ textarea {
   content: none;
 }
 
+table, th, td, tr {
+  border: none! important;
+}
+

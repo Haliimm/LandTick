@@ -107,14 +107,14 @@ export default function Header(props) {
           </Navbar.Brand>
           <Navbar.Collapse id="">
             {state.isLogin === true ? (
-              state.user.is_admin === true ? (
+              state.user.role === "admin" ? (
                 <Nav className="ms-auto gap-3">
-                  <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "60px", height: "60px" }} />}>
+                  <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
                     <NavDropdown.Item href="/add-product">
                       <img src={IconAddTicket} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">Add Product</span>
+                      <span className="ms-2 fw-bold">Tambah Ticket</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item onClick={logout}>
                       <img src={Logout} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">Logout</span>
@@ -123,17 +123,17 @@ export default function Header(props) {
                 </Nav>
               ) : (
                 <Nav className="ms-auto gap-3">
-                  <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "60px", height: "60px" }} />}>
+                  <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
                     <NavDropdown.Item href="/list-product">
                       <img src={Ticket} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">List Product</span>
+                      <span className="ms-2 fw-bold">Tiket Saya</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item href="/list-product">
                       <img src={IconPayment} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">List Product</span>
+                      <span className="ms-2 fw-bold">Payment</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item onClick={logout}>
                       <img src={Logout} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">Logout</span>

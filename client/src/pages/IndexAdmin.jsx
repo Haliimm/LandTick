@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Footer from "../component/Footer";
+import ModalDetailTicket from "../component/ModalDetailTicket";
+import ModalEdit from "../component/ModalEdit";
 
 export default function IndexAdmin() {
+  const [showTicket, setShowTicket] = useState(null);
+  const [showEdit, setShowEdit] = useState(null);
+
+  const handleShowTicket = () => setShowTicket(true);
+  const handleCloseTicket = () => setShowTicket(false);
+
+  const handleShowEdit = () => setShowEdit(true);
+  const handleCloseEdit = () => setShowEdit(false);
+
   return (
     <>
       <div className="container mt-5">
@@ -27,21 +38,17 @@ export default function IndexAdmin() {
                 <td>bca.png</td>
                 <td>Pending</td>
                 <td className="text-center">
-                  <img src="/images/IconSearch.png" alt="" className="" />
-                  <img src="/images/IconEdit.png" alt="" className="ms-5" />
-                  <img src="/images/IconTrash.png" alt="" className="ms-5" />
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Surya Bagus</td>
-                <td>Surabaya - Jakarta</td>
-                <td>bca.png</td>
-                <td>Pending</td>
-                <td className="text-center">
-                  <img src="/images/IconSearch.png" alt="" className="" />
-                  <img src="/images/IconEdit.png" alt="" className="ms-5" />
-                  <img src="/images/IconTrash.png" alt="" className="ms-5" />
+                  <div className="d-flex justify-content-center">
+                    <div>
+                      <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
+                    </div>
+                    <div>
+                      <img onClick={handleShowEdit} src="/images/IconEdit.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                    </div>
+                    <div>
+                      <img src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -49,6 +56,8 @@ export default function IndexAdmin() {
         </div>
       </div>
       <Footer />
+      <ModalDetailTicket show={showTicket} onHide={handleCloseTicket} />
+      <ModalEdit show={showEdit} onHide={handleCloseEdit} />
     </>
   );
 }

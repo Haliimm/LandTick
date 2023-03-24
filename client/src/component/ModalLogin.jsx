@@ -47,7 +47,7 @@ export const Login = (props) => {
       if (response.data.data.role === "admin") {
         Navigate("/");
       } else {
-        Navigate("/my-transaction");
+        Navigate("/");
       }
       Swal.fire({
         position: 'center',

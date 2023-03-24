@@ -1,10 +1,10 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 
 export default function Ticket() {
   return (
     <>
-      {/* <Table className="position-absolute" striped bordered hover style={{ marginTop: "250px", width: "1220px", height: "236px", marginLeft: "60px" }}>
+      {/* <table className="position-absolute w-100" style={{ marginTop: "250px", width: "1220px", height: "236px" }}>
         <thead>
           <tr className="text-center">
             <th className="text-center">Kereta</th>
@@ -16,11 +16,11 @@ export default function Ticket() {
         </thead>
         <tbody>
           <tr className="text-center">
-            <td className="text-center">Argo Wilis</td>
-            <td className="text-center">05.00</td>
-            <td className="text-center">10.00</td>
-            <td className="text-center">5j05m</td>
-            <td className="text-center">Rp. 250.000</td>
+            <td className="text-center fw-bold">Argo Wilis</td>
+            <td className="text-center fw-bold">05.00</td>
+            <td className="text-center fw-bold">10.00</td>
+            <td className="text-center fw-bold">5j05m</td>
+            <td className="text-center fw-bold text-danger">Rp. 250.000</td>
           </tr>
           <tr className="text-center">
             <td className="text-center">Argo Wilis</td>
@@ -30,7 +30,7 @@ export default function Ticket() {
             <td className="text-center">Rp. 250.000</td>
           </tr>
         </tbody>
-      </Table> */}
+      </table> */}
 
       <div style={{ marginTop: "250px", width: "1000px", marginLeft: "180px" }}>
         <div className="d-flex justify-content-between">
@@ -64,7 +64,7 @@ export default function Ticket() {
             </h5>
           </div>
           <div className="flex items-center justify-center">
-            <img src="/images/Arrow.png" alt="" className="h-3 w-3" style={{ marginLeft: "10px" }} />
+            <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
           </div>
           <div>
             <h5 className="fw-bold" style={{ marginLeft: "-25px" }}>10.05</h5>
@@ -74,7 +74,7 @@ export default function Ticket() {
             <h5 className="fw-bold" style={{ marginLeft: "-70px" }}>5j 05 m</h5>
           </div>
           <div>
-            <h5 className="fw-bold">Rp. 250.000</h5>
+            <h5 className="fw-bold text-danger">Rp. 250.000</h5>
           </div>
         </div>
       </Card>

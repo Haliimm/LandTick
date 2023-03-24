@@ -51,7 +51,7 @@ export default function MyTicket() {
               </div>
             </div>
           </div>
-          <div className="d-flex">
+          {/* <div className="d-flex">
             <h5 className="ms-5 mt-4">No. Tanda Pengenal</h5>
             <h5 className="ms-5 mt-4">Nama Pemesanan</h5>
             <h5 className="ms-5 mt-4">No. Handphone</h5>
@@ -64,6 +64,34 @@ export default function MyTicket() {
             <p className="ms-5 mt-3 text-secondary">halimawaludienkhafifie@gmail.com</p>
             <div>
               <Button className="ms-4" variant="outline-light text-white fw-bold" style={{ width: "206px", height: "40px", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}>
+                Bayar Sekarang
+              </Button>
+            </div>
+          </div> */}
+          <div className="d-flex">
+            <table class=" ms-3 mt-4 border-1 border-dark">
+              <thead className="">
+                <tr className="border-bottom border-2">
+                  <th>No. Tanda Pengenal</th>
+                  <th>Nama Pemesan</th>
+                  <th>No. Handphone</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td className="text-secondary">1230912309714098</td>
+                  <td className="text-secondary">Mark</td>
+                  <td className="text-secondary">08219123919</td>
+                  <td className="text-secondary">mark@gmail.com</td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <Button className="mt-5 ms-4 me-3" variant="outline-light text-white fw-bold" style={{ width: "206px", height: "40px", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}>
                 Bayar Sekarang
               </Button>
             </div>
