@@ -20,10 +20,10 @@ export default function Header(props) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
-  let { data: profile } = useQuery("profileCache", async () => {
-    const response = await API.get("/profile");
-    return response.data.data;
-  });
+  // let { data: profile } = useQuery("profileCache", async () => {
+  //   const response = await API.get("/profile");
+  //   return response.data.data;
+  // });
 
   useEffect(() => {
     // Redirect Auth but just when isLoading is false
@@ -110,26 +110,26 @@ export default function Header(props) {
               state.user.role === "admin" ? (
                 <Nav className="ms-auto gap-3">
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
-                    <NavDropdown.Item href="/add-product">
-                      <img src={IconAddTicket} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">Tambah Ticket</span>
+                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-ticket" style={{ width: 40, height: 38.17 }}>
+                      <img src={IconAddTicket} alt="" />
+                      <span className="ms-3 fw-bold text-wrap">Tambah Ticket</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
-                    <NavDropdown.Item onClick={logout}>
-                      <img src={Logout} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">Logout</span>
+                    <NavDropdown.Item className="d-flex align-items-center" onClick={logout}>
+                      <img src={Logout} alt="" />
+                      <span className="ms-3 fw-bold">Logout</span>
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
               ) : (
                 <Nav className="ms-auto gap-3">
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
-                    <NavDropdown.Item href="/list-product">
+                    <NavDropdown.Item href="/my-ticket">
                       <img src={Ticket} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">Tiket Saya</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
-                    <NavDropdown.Item href="/list-product">
+                    <NavDropdown.Item href="/payment">
                       <img src={IconPayment} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">Payment</span>
                     </NavDropdown.Item>
