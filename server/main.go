@@ -5,6 +5,7 @@ import (
 	"landtick/database"
 	"landtick/pkg/mysql"
 	"landtick/routes"
+	"os"
 
 	// "os"
 
@@ -37,8 +38,8 @@ func main() {
 	
 	e.Static("/uploads", "./uploads")
 
-	// var port = os.Getenv("PORT")
-	var port = "5000"
+	var port = os.Getenv("PORT")
+	// var port = "5000"
 	
 	
 	fmt.Println("server running localhost:" + port)
