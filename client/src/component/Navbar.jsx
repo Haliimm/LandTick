@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Button, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { UserContext } from "../context/userContext";
 import { API, setAuthToken } from "../config/api";
 import { useQuery } from "react-query";
@@ -142,17 +142,17 @@ export default function Header(props) {
                 </Nav>
               )
             ) : (
-              <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }}>
-                <Form className="d-flex">
-                  <div type="submit" onClick={handleShowRegister} className="me-2 px-4 fw-bold rounded" style={{ border: "3px solid #EC7AB7" }}>
-                    <p className="my-auto mt-1 mb-1" style={{ color: "#EC7A7A" }}>
-                      Daftar
-                    </p>
-                  </div>
-                  <div type="submit" onClick={handleShowLogin} className="me-2 px-4 fw-bold rounded" style={{ border: "3px solid #EC7AB7", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}>
-                    <p className="my-auto mt-1 mb-1 text-light">Login</p>
-                  </div>
-                </Form>
+              <Nav className="ms-auto gap-3">
+                <NavLink className="text-decoration-none" to="">
+                  <Button size="sm" className="fw-bold d-flex justify-content-center align-items-center" variant="outline-light" onClick={handleShowRegister} style={{ border: "2px solid #EC7AB7", backgroundColor: "white", fontSize: 20, fontWeight: 700, color: "#EC7AB7", width: "112px", height: "40px" }}>
+                    Daftar
+                  </Button>
+                </NavLink>
+                <NavLink className="text-decoration-none" to="">
+                  <Button size="sm" className="fw-bold" href="" style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", fontSize: 20, fontWeight: 700, color: "white", width: "112px", height: "40px" }} variant="outline-light" onClick={handleShowLogin}>
+                    Login
+                  </Button>
+                </NavLink>
               </Nav>
             )}
           </Navbar.Collapse>
