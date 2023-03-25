@@ -6,13 +6,13 @@ type Ticket struct {
 	ID                   int             `json:"id" `
 	NameTrain            string          `json:"name_train" gorm:"type: varchar(255)"`
 	TypeTrain            string          `json:"type_train" gorm:"type: varchar(255)"`
-	StartStationID       int             `json:"start_station_id,omitempty" form:"start_station_id"`
+	StartStationID       int             `json:"start_station_id,string,omitempty" form:"start_station_id"`
 	StartStation         StationResponse `json:"start_station"`
 	StartDate            string          `json:"start_date" gorm:"type: varchar(255)"`
 	StartTime            string          `json:"start_time" gorm:"type: varchar(255)"`
 	ArrivalTime          string          `json:"arrival_time" gorm:"type: varchar(255)"`
 	DestinationStation   StationResponse `json:"destination_station"`
-	DestinationStationID int             `json:"destination_station_id,omitempty" form:"destination_station_id"`
+	DestinationStationID int             `json:"destination_station_id,string,omitempty" form:"destination_station_id"`
 	Price                int             `json:"price" form:"price"`
 	Qty                  int             `json:"qty" form:"qty"`
 	UserID               int             `json:"user_id"`
@@ -26,12 +26,12 @@ type TicketResponse struct {
 	NameTrain            string          `json:"name_train"`
 	TypeTrain            string          `json:"type_train"`
 	StartStation         StationResponse `json:"start_station"`
-	StartStationID       int             `json:"start_station_id,omitempty"`
+	StartStationID       int             `json:"start_station_id,string,omitempty"`
 	StartDate            string          `json:"start_date"`
 	StartTime            string          `json:"start_time"`
 	ArrivalTime          string          `json:"arrival_time"`
 	DestinationStation   StationResponse `json:"destination_station"`
-	DestinationStationID int             `json:"destination_station_id,omitempty"`
+	DestinationStationID int             `json:"destination_station_id,string,omitempty"`
 	Price                int             `json:"price,string,omitempty"`
 	Qty                  int             `json:"qty,string,omitempty"`
 	UserID               int             `json:"user_id"`
