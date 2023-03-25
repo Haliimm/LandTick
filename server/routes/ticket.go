@@ -11,12 +11,11 @@ import (
 
 func TicketRoutes(e *echo.Group) {
 	TicketRepository := repositories.RepositoryTicket(mysql.DB)
+
 	h := handlers.HandlerTicket(TicketRepository)
 
-	e.GET("/tickets", h.FindTicket)
+	e.GET("/tickets", h.FindAllTickets)
+	e.POST("/ticket", middleware.Auth(h.CreateTicket))
 	e.GET("/ticket/:id", h.GetTicket)
-	e.POST("/ticket", middleware.Auth(h.AddTicket))
-
-	e.GET("/filter", h.FindFilter)
-	e.POST("/transaction-qty/:id", middleware.Auth(h.CreateTransactionQtyTicket))
+	e.POST("ticket-transaction/:id", middleware.Auth(h.CreateTransactionQty))
 }

@@ -1,23 +1,20 @@
 package ticketdto
 
-type TicketRequest struct {
-	NameTrain            string `json:"name_train" gorm:"type: varchar(255)"`
-	TypeTrain            string `json:"type_train" gorm:"type: varchar(255)"`
-	StartDate            string `json:"start_date" gorm:"type: varchar(255)"`
-	StartStationID       int    `json:"start_station_id,omitempty" form:"start_station_id" gorm:"type: int"`
-	StartTime            string `json:"start_time" gorm:"type: varchar(255)"`
-	DestinationStationID int    `json:"destination_station_id,omitempty" form:"destination_station_id" gorm:"type: int"`
-	ArrivalTime          string `json:"arrival_time" gorm:"type: varchar(255)"`
-	Price                int    `json:"price,omitempty" form:"price" gorm:"type: int"`
-	Qty                  int    `json:"qty,omitempty" form:"qty" gorm:"type: int"`
-}
+import "time"
 
-type FilterRequest struct {
-	StartDate            string `json:"start_date" form:"start_date"`
-	StartStationID       int    `json:"start_station_id" form:"start_station_id" gorm:"type: int"`
-	DestinationStationID int    `json:"destination_station_id" form:"destination_station_id" gorm:"type: int"`
+type TicketRequest struct {
+	ID                   int       `json:"-" gorm:"primary_key:auto_increment"`
+	TrainName            string    `json:"train_name" gorm:"type: varchar(255)" form:"train_name"`
+	TrainType            string    `json:"train_type" gorm:"type: varchar(255)" form:"train_type"`
+	StartStationID       int       `json:"start_station_id"  form:"start_station_id"`
+	DestinationStationID int       `json:"destination_station_id" form:"destination_station_id"`
+	StartDate            time.Time `json:"start_date" form:"start_date"`
+	StartTime            string    `json:"start_time" form:"start_time"`
+	ArrivalTime          string    `json:"arrival_time" form:"arrival_time"`
+	Price                int       `json:"price" gorm:"type: int" form:"price"`
+	Stock                int       `json:"qty" gorm:"type: int" form:"stock"`
 }
 
 type TransTicket struct {
-	Qty int `json:"qty" form:"qty" gorm:"type: int"`
+	Qty int `json:"qty" form:"qty"`
 }

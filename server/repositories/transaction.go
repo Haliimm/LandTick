@@ -98,7 +98,7 @@ func (r *repository) UpdateTransaction(status string, ID string) (models.Transac
 	if status != transaction.Status && status == "success" {
 		var ticket models.Ticket
 		r.db.First(&ticket, transaction.Ticket.ID)
-		ticket.Qty = ticket.Qty - 1
+		ticket.Stock = ticket.Stock - 1
 		r.db.Save(&ticket)
 	}
 
