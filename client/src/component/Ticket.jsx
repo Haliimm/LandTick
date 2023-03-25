@@ -1,83 +1,120 @@
-import React from "react";
-import { Card, Table } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Card } from "react-bootstrap";
+import { API } from "../config/api";
+import { UserContext } from "../context/userContext";
+import { useQuery } from "react-query";
+import ModalLogin from "./ModalLogin";
+import { useNavigate } from "react-router";
+import ModalSuccess from "../component/ModalSuccessTicket";
 
-export default function Ticket() {
+export default function Ticket(props) {
+  let navigate = useNavigate();
+  const [state] = useContext(UserContext);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSuccess, setShowsuccess] = useState(false);
+
+  const handleCloseSuccess = () => {
+    setShowsuccess(false);
+    navigate("/my-ticket");
+  };
+
+  const popSuccess = () => {
+    setShowsuccess(true);
+  };
+
+  const handleClose = () => {
+    setShowLogin(false);
+  };
+
+  let { data: tickets } = useQuery("ticketCache", async () => {
+    const response = await API.get("/tickets");
+    return response.data.data;
+  });
+
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(money);
+  };
+
+  const HandleBuy = async (id) => {
+    try {
+      const response = await API.post(`/create-trans/${id}`);
+      console.log(response);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      {/* <table className="position-absolute w-100" style={{ marginTop: "250px", width: "1220px", height: "236px" }}>
-        <thead>
-          <tr className="text-center">
-            <th className="text-center">Kereta</th>
-            <th className="text-center">Berangkat</th>
-            <th className="text-center">Tiba</th>
-            <th className="text-center">Durasi</th>
-            <th className="text-center">Harga Per Orang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="text-center">
-            <td className="text-center fw-bold">Argo Wilis</td>
-            <td className="text-center fw-bold">05.00</td>
-            <td className="text-center fw-bold">10.00</td>
-            <td className="text-center fw-bold">5j05m</td>
-            <td className="text-center fw-bold text-danger">Rp. 250.000</td>
-          </tr>
-          <tr className="text-center">
-            <td className="text-center">Argo Wilis</td>
-            <td className="text-center">05.00</td>
-            <td className="text-center">10.00</td>
-            <td className="text-center">5j05m</td>
-            <td className="text-center">Rp. 250.000</td>
-          </tr>
-        </tbody>
-      </table> */}
+      {tickets < 1 ? (
+        <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Belum Menambahkan Tiket</h5>
+      ) : (
+        <>
+          <div style={{ marginTop: "50px", width: "1000px", marginLeft: "180px" }}>
+            <div className="d-flex justify-content-between">
+              <h5 className="">Nama Kereta</h5>
+              <h5 className="">Berangkat</h5>
+              <h5 className="text-white">Jeda</h5>
+              <h5 className="">Tiba</h5>
+              <h5 className="">Durasi</h5>
+              <h5 className="">Harga Per Orang</h5>
+            </div>
+          </div>
+          {tickets?.map((ticket, index) => (
+            <Card
+              key={index}
+              className="my-5 cursor-pointer"
+              style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px" }}
+              onClick={() => {
+                state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);
+                HandleBuy(ticket.id);
+              }}
+            >
+              <div className="d-flex justify-content-between" style={{ marginTop: "20px", width: "1000px", marginLeft: "120px" }}>
+                <div>
+                  <h5 className="fw-bold">{ticket.train_name}</h5>
+                  <h5 className="text-secondary">{ticket.train_type}</h5>
+                </div>
+                <div>
+                  <h5 className="fw-bold" style={{ marginLeft: "-15px" }}>
+                    {ticket.start_time}
+                  </h5>
+                  <h5 className="text-secondary" style={{ marginLeft: "-15px" }}>
+                    {ticket.StartStation.name}
+                  </h5>
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
+                </div>
+                <div>
+                  <h5 className="fw-bold" style={{ marginLeft: "-25px" }}>
+                    {ticket.arrival_time}
+                  </h5>
+                  <h5 className="text-secondary" style={{ marginLeft: "-25px" }}>
+                    {ticket.EndStation.name}
+                  </h5>
+                </div>
+                <div>
+                  <h5 className="fw-bold" style={{ marginLeft: "-70px" }}>
+                    5j 05 m
+                  </h5>
+                </div>
+                <div>
+                  <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
+                </div>
+              </div>
+            </Card>
+          ))}
 
-      <div style={{ marginTop: "250px", width: "1000px", marginLeft: "180px" }}>
-        <div className="d-flex justify-content-between">
-          <h5 className="">Nama Kereta</h5>
-          <h5 className="">Berangkat</h5>
-          <h5 className="text-white">Jeda</h5>
-          <h5 className="">Tiba</h5>
-          <h5 className="">Durasi</h5>
-          <h5 className="">Harga Per Orang</h5>
-        </div>
-      </div>
-      <Card
-        // key={item.id}
-        className="my-5 cursor-pointer"
-        style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px" }}
-        //     onClick={() => {
-        //       state.isLogin == false ? setShowLogin(true) : HandleBuyying(item.id);
-        //     }}
-      >
-        <div className="d-flex justify-content-between" style={{ marginTop: "20px", width: "1000px", marginLeft: "120px" }}>
-          <div>
-            <h5 className="fw-bold">Argo Wilis</h5>
-            <h5 className="text-secondary">Eksekutif (H)</h5>
-          </div>
-          <div>
-            <h5 className="fw-bold" style={{ marginLeft: "-15px" }}>
-              05.00
-            </h5>
-            <h5 className="text-secondary" style={{ marginLeft: "-15px" }}>
-              Gambir
-            </h5>
-          </div>
-          <div className="flex items-center justify-center">
-            <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
-          </div>
-          <div>
-            <h5 className="fw-bold" style={{ marginLeft: "-25px" }}>10.05</h5>
-            <h5 className="text-secondary" style={{ marginLeft: "-25px" }}>Surabaya</h5>
-          </div>
-          <div>
-            <h5 className="fw-bold" style={{ marginLeft: "-70px" }}>5j 05 m</h5>
-          </div>
-          <div>
-            <h5 className="fw-bold text-danger">Rp. 250.000</h5>
-          </div>
-        </div>
-      </Card>
+          {showSuccess && <ModalSuccess show={showSuccess} onHide={handleCloseSuccess} handleSuccess={popSuccess} />}
+          {showLogin && <ModalLogin show={showLogin} setShow={setShowLogin} onHide={handleClose} />}
+        </>
+      )}
     </>
   );
 }

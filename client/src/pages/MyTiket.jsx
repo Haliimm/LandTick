@@ -5,7 +5,7 @@ export default function MyTicket() {
   return (
     <>
       <h1 style={{ marginTop: "68px", marginLeft: "120px" }}>My Ticket</h1>
-      <Card className="position-absolute" style={{ width: "1035px", height: "344px", marginTop: "33px", marginLeft: "165.50px" }}>
+      <Card className="" style={{ width: "1035px", height: "344px", marginTop: "33px", marginLeft: "165.50px" }}>
         <div className="">
           <div>
             <img className="position-absolute ms-4 my-auto" src="/images/Land.png" alt="Logo" />

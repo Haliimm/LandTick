@@ -44,6 +44,7 @@ func (h *handlerTicket) CreateTicket(c echo.Context) error {
 	arrivalTime := c.FormValue("arrival_time")
 	price, _ := strconv.Atoi(c.FormValue("price"))
 	stock, _ := strconv.Atoi(c.FormValue("qty"))
+	
 	request := models.Ticket{
 		TrainName:      c.FormValue("train_name"),
 		TrainType:      c.FormValue("train_type"),

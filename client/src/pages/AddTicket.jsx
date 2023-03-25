@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Footer from "../component/Footer";
 import { Form, Button } from "react-bootstrap";
 import { API } from "../config/api";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import Swal from "sweetalert2";
 
 export default function AddTicket() {
@@ -19,10 +19,18 @@ export default function AddTicket() {
   });
   console.log(form);
 
-  let { data: stations, refetch } = useQuery("stationsCache", async () => {
-    const response = await API.get("/stations");
-    return response.data.data.stations;
-  });
+  const [station, setStation] = useState();
+
+  const getStation = async () => {
+    try {
+      const response = await API.get("/stations");
+      setStation(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -47,18 +55,11 @@ export default function AddTicket() {
       const response = await API.post("/ticket", formData);
       if (response.status === 200) {
         Swal.fire({
-          title: "New product has been added!",
+          position: "center",
           icon: "success",
+          title: "New ticket has been added!",
+          showConfirmButton: false,
           timer: 1500,
-          width: 600,
-          padding: "3em",
-          color: "#c23a63",
-          background: "#fff)",
-          backdrop: `
-            rgba(0,0,123,0.4)
-            left top
-            no-repeat
-          `,
         });
         setForm({
           train_name: "",
@@ -73,18 +74,25 @@ export default function AddTicket() {
         });
       }
     } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Failed to add ticket",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       console.log(error);
     }
   });
 
   useEffect(() => {
-    refetch();
-  }, [stations]);
+    getStation();
+  }, []);
 
   return (
     <>
       <div className="container mt-5">
-        <h1 className="fw-bold">Tambah Tiket</h1>
+        <h1 className="fw-bold">Add Ticket</h1>
         <Form
           className="mt-5"
           onSubmit={(e) => {
@@ -109,7 +117,7 @@ export default function AddTicket() {
 
           <Form.Select className="mb-3" name="start_station_id" aria-label="Default select example" onChange={handleChange} value={form.start_station_id}>
             <option hidden>Stasiun Keberangkatan</option>
-            {stations?.map((item, index) => (
+            {station?.map((item, index) => (
               <option key={index} value={item?.id}>
                 {item.name}
               </option>
@@ -122,7 +130,7 @@ export default function AddTicket() {
 
           <Form.Select className="mb-3" name="destination_station_id" aria-label="Default select example" onChange={handleChange} value={form.destination_station_id}>
             <option hidden>Stasiun Tujuan</option>
-            {stations?.map((item, index) => (
+            {station?.map((item, index) => (
               <option key={index} value={item?.id}>
                 {item.name}
               </option>

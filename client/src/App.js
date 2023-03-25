@@ -19,11 +19,9 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={state.user.is_admin ? <AdminDashboard /> : <Home />} /> */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={state.user.role === "admin" ? <IndexAdmin /> : <Home />} />
         <Route path="/my-ticket" element={<MyTicket />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/admin/dashboard" element={<IndexAdmin />} />
         <Route path="/admin/add-ticket" element={<AddTicket />} />
 
         {/* Route User */}

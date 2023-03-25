@@ -11,7 +11,6 @@ type TransactionRepository interface {
 	GetTicketById(ID int) (models.Ticket, error)
 	GetTicketTransaction(UserID int) ([]models.Transaction, error)
 	CreateTransaction(trans models.Transaction) (models.Transaction, error)
-	GetTransactionById(ID int) (models.Transaction, error)
 	GetTransaction(ID int) (models.Transaction, error)
 	GetTransUser(UserID int) (models.Transaction, error)
 	GetOneTransaction(ID string) (models.Transaction, error)
@@ -26,69 +25,43 @@ func RepositoryTransaction(db *gorm.DB) *repository {
 
 func (r *repository) FindTransactions() ([]models.Transaction, error) {
 	var transactions []models.Transaction
-	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.DestinationSTation").Find(&transactions).Error
+	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.EndStation").Find(&transactions).Error
 
 	return transactions, err
 }
 
 func (r *repository) GetTicketById(ID int) (models.Ticket, error) {
-	var tiket models.Ticket
-	err := r.db.Preload("StartStation").Preload("DestinationStation").First(&tiket, "id = ?", ID).Error
+	var ticket models.Ticket
+	err := r.db.Preload("StartStation").Preload("EndStation").First(&ticket, "id = ?", ID).Error
 
-	return tiket, err
+	return ticket, err
 }
 
 func (r *repository) CreateTransaction(trans models.Transaction) (models.Transaction, error) {
-	err := r.db.Preload("Ticket.StartStation").Preload("Ticket.DestinationStation").Create(&trans).Error
+	err := r.db.Preload("Ticket.StartStation").Preload("Ticket.EndStation").Create(&trans).Error
 
 	return trans, err
 }
-
-func (r *repository) GetTransactionById(ID int) (models.Transaction, error) {
-	var transaction models.Transaction
-	err := r.db.Preload("Ticket").Preload("User").First(&transaction, "id = ?", ID).Error
-
-	return transaction, err
-}
-
 func (r *repository) GetTransaction(ID int) (models.Transaction, error) {
 	var transaction models.Transaction
-	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.DestinationStation").First(&transaction, ID).Error
+	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.EndStation").First(&transaction, ID).Error
 
 	return transaction, err
 }
-func (r *repository) GetOneTransaction(ID string) (models.Transaction, error) {
+
+func (r *repository) GetTransUser(UserID int) (models.Transaction, error) {
 	var transaction models.Transaction
-	err := r.db.Preload("Ticket").Preload("Ticket.User").Preload("User").First(&transaction, "id = ?", ID).Error
+	err := r.db.Preload("Ticket.StartStation").Preload("Ticket.EndStation").Where("user = ?", UserID).Where("status = ?").Find(&transaction).Error
 
 	return transaction, err
 }
 
 func (r *repository) GetTicketTransaction(UserID int) ([]models.Transaction, error) {
-	var transactions []models.Transaction
-	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.DestinationStation").Where("user_id = ?", UserID).Find(&transactions).Error
+	var transaction []models.Transaction
 
-	return transactions, err
-}
-
-func (r *repository) GetTransUser(UserID int) (models.Transaction, error) {
-	var transaction models.Transaction
-	err := r.db.Preload("Ticket.StartStation").Preload("Ticket.DestinationStation").Where("user = ?", UserID).Where("status = ?", "pending").Find(&transaction).Error
+	err := r.db.Preload("User").Preload("Ticket.StartStation").Preload("Ticket.EndStation").Where("user_id = ?", UserID).Find(&transaction).Error
 
 	return transaction, err
-}
-
-func (r *repository) Payment(payment models.Transaction) (models.Transaction, error) {
-	err := r.db.Save(&payment).Error
-
-	return payment, err
-}
-
-func (r *repository) GetPaymentByIdTrans(ID int) (models.Transaction, error) {
-	var payment models.Transaction
-	err := r.db.Preload("Ticket").Where("transaction_id = ?", ID).Find(&payment).Error
-
-	return payment, err
 }
 
 func (r *repository) UpdateTransaction(status string, ID string) (models.Transaction, error) {
@@ -105,4 +78,23 @@ func (r *repository) UpdateTransaction(status string, ID string) (models.Transac
 	transaction.Status = status
 	error := r.db.Save(&transaction).Error
 	return transaction, error
+}
+
+func (r *repository) GetOneTransaction(ID string) (models.Transaction, error) {
+	var transaction models.Transaction
+	err := r.db.Preload("Ticket").Preload("Ticket.User").Preload("User").First(&transaction, "id = ?", ID).Error
+
+	return transaction, err
+}
+
+func (r *repository) Payment(payment models.Transaction) (models.Transaction, error) {
+	err := r.db.Save(&payment).Error
+	return payment, err
+}
+
+func (r *repository) GetPaymentByIdTrans(ID int) (models.Transaction, error) {
+	var payment models.Transaction
+	err := r.db.Preload("Ticket").Where("transaction_id = ?", ID).Find(&payment).Error
+
+	return payment, err
 }

@@ -1,4 +1,4 @@
-package transactionsdto
+package transactiondto
 
 type TransactionRequest struct {
 	UserID   int    `json:"user_id"`

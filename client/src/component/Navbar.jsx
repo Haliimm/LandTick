@@ -101,7 +101,7 @@ export default function Header(props) {
     <>
       <Navbar className="" style={{ backgroundColor: "#FFFFFF", boxShadow: "0px 3px 20px rgba(0, 0, 0, 0.25)", height: "60px" }}>
         <Container>
-          <Navbar.Brand href="#">
+          <Navbar.Brand href="/">
             <img src="/images/LandTick.png" alt="LandTick" />
             <img className="ms-2" src="/images/Logo.png" alt="Logo LandTick" />
           </Navbar.Brand>
@@ -109,10 +109,13 @@ export default function Header(props) {
             {state.isLogin === true ? (
               state.user.role === "admin" ? (
                 <Nav className="ms-auto gap-3">
-                  <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
-                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-ticket" style={{ width: 40, height: 38.17 }}>
+                  <h5 className="fw-bold" style={{ color: "#EC7A7A", marginTop: "20px" }}>
+                    Admin
+                  </h5>
+                  <NavDropdown align="end" id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
+                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-ticket">
                       <img src={IconAddTicket} alt="" />
-                      <span className="ms-3 fw-bold text-wrap">Tambah Ticket</span>
+                      <span className="ms-3 fw-bold">Add Ticket</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item className="d-flex align-items-center" onClick={logout}>
@@ -123,10 +126,13 @@ export default function Header(props) {
                 </Nav>
               ) : (
                 <Nav className="ms-auto gap-3">
+                  <h5 className="fw-bold" style={{ color: "#EC7A7A", marginTop: "20px" }}>
+                    User
+                  </h5>
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
                     <NavDropdown.Item href="/my-ticket">
                       <img src={Ticket} alt="" style={{ width: 40, height: 38.17 }} />
-                      <span className="ms-2 fw-bold">Tiket Saya</span>
+                      <span className="ms-2 fw-bold">My Ticket</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item href="/payment">
@@ -144,12 +150,25 @@ export default function Header(props) {
             ) : (
               <Nav className="ms-auto gap-3">
                 <NavLink className="text-decoration-none" to="">
-                  <Button size="sm" className="fw-bold d-flex justify-content-center align-items-center" variant="outline-light" onClick={handleShowRegister} style={{ border: "2px solid #EC7AB7", backgroundColor: "white", fontSize: 20, fontWeight: 700, color: "#EC7AB7", width: "112px", height: "40px" }}>
+                  <Button
+                    size="sm"
+                    className="fw-bold d-flex justify-content-center align-items-center"
+                    variant="outline-light"
+                    onClick={handleShowRegister}
+                    style={{ border: "2px solid #EC7AB7", backgroundColor: "white", fontSize: 20, fontWeight: 700, color: "#EC7AB7", width: "112px", height: "40px" }}
+                  >
                     Daftar
                   </Button>
                 </NavLink>
                 <NavLink className="text-decoration-none" to="">
-                  <Button size="sm" className="fw-bold" href="" style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", fontSize: 20, fontWeight: 700, color: "white", width: "112px", height: "40px" }} variant="outline-light" onClick={handleShowLogin}>
+                  <Button
+                    size="sm"
+                    className="fw-bold"
+                    href=""
+                    style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", fontSize: 20, fontWeight: 700, color: "white", width: "112px", height: "40px" }}
+                    variant="outline-light"
+                    onClick={handleShowLogin}
+                  >
                     Login
                   </Button>
                 </NavLink>

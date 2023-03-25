@@ -28,3 +28,14 @@ type UserResponse struct {
 func (UserResponse) TableName() string {
 	return "users"
 }
+
+type UsersProfileResponse struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	Phone string `json:"phone"`
+}
+
+func (UsersProfileResponse) TableName() string {
+	return "users"
+}
