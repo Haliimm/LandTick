@@ -45,7 +45,7 @@ export const Login = (props) => {
 
       // Status check
       if (response.data.data.role === "admin") {
-        Navigate("/");
+        Navigate("/admin/dashboard");
       } else {
         Navigate("/");
       }

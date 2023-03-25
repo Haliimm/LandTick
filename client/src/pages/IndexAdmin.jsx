@@ -20,7 +20,7 @@ export default function IndexAdmin() {
         <h1>List Transaksi</h1>
         <div className="mt-5">
           <Table striped className="m-auto w-100" style={{ border: "none", width: "100%" }}>
-            <thead className="text-center">
+            <thead className="">
               <tr>
                 <th>No</th>
                 <th>Users</th>
@@ -37,8 +37,8 @@ export default function IndexAdmin() {
                 <td>Surabaya - Jakarta</td>
                 <td>bca.png</td>
                 <td>Pending</td>
-                <td className="text-center">
-                  <div className="d-flex justify-content-center">
+                <td className="">
+                  <div className="d-flex">
                     <div>
                       <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
                     </div>
