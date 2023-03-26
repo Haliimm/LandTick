@@ -10,10 +10,10 @@ export default function DeleteData({ show, handleClose, setConfirmDelete }) {
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Body className="text-dark">
                 <div style={{ fontSize: '20px', fontWeight: '900' }}>
-                    Delete Product
+                    Delete Transaction
                 </div>
                 <div style={{ fontSize: '16px', fontWeight: '500' }} className="mt-2">
-                    Are you sure you want to delete this product?
+                    Are you sure you want to delete this Transaction?
                 </div>
                 <div className="text-end mt-5">
                     <Button onClick={handleDelete} size="sm" className="btn-success me-2" style={{ width: '135px' }}>Yes, Delete</Button>

@@ -7,20 +7,22 @@ import (
 )
 
 type StationRepository interface {
-	FindStations() ([]models.Station, error)
-	GetStationById(ID int) (models.Station, error)
 	CreateStation(station models.Station) (models.Station, error)
+	FindAllStations() ([]models.Station, error)
+	GetStationById(ID int) (models.Station, error)
+	UpdateStation(station models.Station) (models.Station, error)
+	DeleteStation(station models.Station) (models.Station, error)
 }
 
 func RepositoryStation(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindStations() ([]models.Station, error) {
-	var station []models.Station
-	err := r.db.Find(&station).Error
+func (r *repository) FindAllStations() ([]models.Station, error) {
+	var stations []models.Station
+	err := r.db.Find(&stations).Error
 
-	return station, err
+	return stations, err
 }
 
 func (r *repository) GetStationById(ID int) (models.Station, error) {
@@ -33,4 +35,14 @@ func (r *repository) GetStationById(ID int) (models.Station, error) {
 func (r *repository) CreateStation(station models.Station) (models.Station, error) {
 	err := r.db.Create(&station).Error
 	return station, err
+}
+func (r *repository) UpdateStation(station models.Station) (models.Station, error) {
+	err := r.db.Model(&models.Station{}).Where("id = ?", station.ID).Updates(models.Station{Name: station.Name, Kota: station.Kota}).Error
+	return station, err
+}
+func (r *repository) DeleteStation(station models.Station) (models.Station, error) {
+	var stations models.Station
+	err := r.db.Delete(&station).Error // Using Delete method
+
+	return stations, err
 }

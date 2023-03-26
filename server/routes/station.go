@@ -9,10 +9,12 @@ import (
 )
 
 func StationRoutes(e *echo.Group) {
-	StationRepository := repositories.RepositoryStation(mysql.DB)
-	h := handlers.HandlerStation(StationRepository)
+	stationRepository := repositories.RepositoryStation(mysql.DB)
+	h := handlers.HandlerStation(stationRepository)
 
-	e.GET("/stations", h.FindStations)
-	e.GET("/station/:id", h.GetStationById)
+	e.GET("/stations", h.FindAllStation)
 	e.POST("/station", h.CreateStation)
+	e.GET("/station/:id", h.GetStationById)
+	e.PATCH("/station/:id", h.UpdateStation)
+	e.DELETE("/station/:id", h.DeleteStation)
 }

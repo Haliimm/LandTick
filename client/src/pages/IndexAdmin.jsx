@@ -38,7 +38,7 @@ export default function IndexAdmin() {
   // If confirm is true, execute delete data
   const deleteById = useMutation(async (id) => {
     try {
-      const response = await API.delete(`/transactions/${id}`);
+      const response = await API.delete(`/transaction/${id}`);
       console.log(response);
       refetch();
       navigate("/");
