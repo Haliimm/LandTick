@@ -29,7 +29,7 @@ export default function Payment() {
     }).format(money);
   };
 
-  const handlePay = useMutation(async (id) => {
+  const   handlePay = useMutation(async (id) => {
     try {
       const response = await API.get(`/payment/${id}`);
       const token = response.data.data.token;
@@ -145,7 +145,7 @@ export default function Payment() {
                         </div>
                       </Card>
                       <Button
-                        onClick={() => handlePay.mutate(ticket?.transaction_id)}
+                        onClick={() => handlePay.mutate(ticket?.id)}
                         type="submit"
                         variant="outline-light"
                         className="fw-bold mt-3 mb-5"
