@@ -122,6 +122,7 @@ func (h *handlerTransaction) GetIdPayment(c echo.Context) error {
 func (h *handlerTransaction) PaymentTransaction(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	payment, err := h.TransactionRepository.GetPaymentByIdTrans(id)
+	fmt.Println(payment)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
@@ -138,7 +139,7 @@ func (h *handlerTransaction) PaymentTransaction(c echo.Context) error {
 			Secure: true,
 		},
 		CustomerDetail: &midtrans.CustomerDetails{
-			FName: payment.User.Name,
+			FName: payment.User.Fullname,
 			Email: payment.User.Email,
 		},
 	}

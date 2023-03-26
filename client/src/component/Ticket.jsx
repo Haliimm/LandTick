@@ -52,55 +52,45 @@ export default function Ticket(props) {
   return (
     <>
       {tickets < 1 ? (
-        <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Belum Menambahkan Tiket</h5>
+        <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Has Not Added Tickets</h5>
       ) : (
         <>
-          <div style={{ marginTop: "50px", width: "1000px", marginLeft: "180px" }}>
-            <div className="d-flex justify-content-between">
-              <h5 className="">Nama Kereta</h5>
-              <h5 className="">Berangkat</h5>
-              <h5 className="text-white">Jeda</h5>
-              <h5 className="">Tiba</h5>
-              <h5 className="">Durasi</h5>
-              <h5 className="">Harga Per Orang</h5>
-            </div>
-          </div>
           {tickets?.map((ticket, index) => (
             <Card
               key={index}
-              className="my-5 cursor-pointer shadow"
-              style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px" }}
+              className="my-5 shadow"
+              style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px", cursor: "pointer" }}
               onClick={() => {
                 state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);
                 HandleBuy(ticket.id);
               }}
             >
-              <div className="d-flex justify-content-between" style={{ marginTop: "20px", width: "1000px", marginLeft: "120px" }}>
-                <div>
+              <div className="d-flex justify-content-around mt-3">
+                <div className="ms-5">
                   <h5 className="fw-bold">{ticket.train_name}</h5>
                   <h5 className="text-secondary">{ticket.train_type}</h5>
                 </div>
-                <div>
-                  <h5 className="fw-bold" style={{ marginLeft: "-15px" }}>
+                <div className="ms-2">
+                  <h5 className="fw-bold" >
                     {ticket.start_time}
                   </h5>
-                  <h5 className="text-secondary" style={{ marginLeft: "-15px" }}>
+                  <h5 className="text-secondary" >
                     {ticket.StartStation.name}
                   </h5>
                 </div>
-                <div className="flex items-center justify-center">
+                <div className="flex align-items-center justify-content-center">
                   <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
                 </div>
                 <div>
-                  <h5 className="fw-bold" style={{ marginLeft: "-25px" }}>
+                  <h5 className="fw-bold">
                     {ticket.arrival_time}
                   </h5>
-                  <h5 className="text-secondary" style={{ marginLeft: "-25px" }}>
+                  <h5 className="text-secondary">
                     {ticket.EndStation.name}
                   </h5>
                 </div>
                 <div>
-                  <h5 className="fw-bold" style={{ marginLeft: "-70px" }}>
+                  <h5 className="fw-bold">
                     5j 05 m
                   </h5>
                 </div>

@@ -8,7 +8,7 @@ import { UserContext } from "../context/userContext";
 import { useQuery } from "react-query";
 
 export default function Home(props) {
-  const [showLogin, setShowLogin] = useState(false)
+  const [showLogin, setShowLogin] = useState(false);
   const [state] = useContext(UserContext);
   const [ticket, setTicket] = useState();
   const [formSearch, setFormSearch] = useState({
@@ -20,9 +20,9 @@ export default function Home(props) {
 
   useEffect(() => {
     if (state.isLogin === true) {
-        setShowLogin(false)
+      setShowLogin(false);
     }
-}, [state.isLogin])
+  }, [state.isLogin]);
 
   const handleChange = (e) => {
     setFormSearch({
@@ -33,21 +33,26 @@ export default function Home(props) {
 
   let { data: tickets } = useQuery("ticketCache", async () => {
     const response = await API.get("/tickets");
+
     return response.data.data;
   });
 
-  const handleSearch = (e) => {
+  const [filteredTicket, setFilteredTicket] = useState([]);
+  const handleFilter = (e) => {
     e.preventDefault();
-    const search = tickets.filter((ticket) => {
+    const filtered = tickets.filter((ticket) => {
       return (
-        (formSearch.start_station_id === "" || ticket.start_station_id === formSearch.start_station_id) &&
-        (formSearch.destination_station_id === "" || ticket.destination_station_id === formSearch.destination_station_id) &&
+        (formSearch.start_station_id === "" || ticket.StartStationID === formSearch.start_station_id) &&
+        (formSearch.destination_station_id === "" || ticket.EndStationID === formSearch.destination_station_id) &&
         (formSearch.start_date === "" || ticket.start_date === formSearch.start_date) &&
         formSearch.qty <= ticket.qty
       );
     });
-    setTicket(search);
-    console.log("ini data filter", search);
+    setFilteredTicket(filtered);
+  };
+
+  const resetFilter = () => {
+    setFilteredTicket([]);
   };
 
   const [station, setStation] = useState();
@@ -83,6 +88,7 @@ export default function Home(props) {
                 <h5>Asal</h5>
                 <div className="">
                   <Form.Select aria-label="Default select example" name="start_station_id" onChange={handleChange}>
+                  <option hidden>Start Station</option>
                     {station?.map((item, index) => (
                       <option key={index} value={item?.id}>
                         {item.name}
@@ -119,7 +125,7 @@ export default function Home(props) {
                   <div>
                     <h5 className="">Dewasa</h5>
                     <Form.Select aria-label="Default select example" name="qty" onChange={handleChange} value={formSearch.qty} style={{ width: "116px", height: "auto" }}>
-                      <option hidden>0</option>
+                      <option value="0">0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -128,13 +134,13 @@ export default function Home(props) {
                   <div className="ms-3">
                     <h5>Bayi</h5>
                     <Form.Select aria-label="Default select example" name="anak" onChange={handleChange} style={{ width: "116px", height: "auto" }}>
-                      <option hidden>0</option>
+                      <option value="0">0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                     </Form.Select>
                   </div>
-                  <Button onClick={(e) => handleSearch(e)} className="ms-3 fw-bold" variant="outline-light" style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", width: "134px", height: "auto", marginTop: "30px" }}>
+                  <Button onClick={(e) => handleFilter(e)} type="submit" className="ms-3 fw-bold" variant="outline-light" style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", width: "134px", height: "auto", marginTop: "30px" }}>
                     Cari Ticket
                   </Button>
                 </div>
@@ -143,7 +149,19 @@ export default function Home(props) {
           </form>
         </div>
       </div>
-      <Ticket tickets={ticket} />
+      <div className="container mx-auto mt-5">
+        <div className="w-90 mx-auto">
+          <div className="d-flex justify-content-around">
+            <h5 className="">Nama Kereta</h5>
+            <h5 className="">Berangkat</h5>
+            <h5 className="text-white">Jeda</h5>
+            <h5 className="">Tiba</h5>
+            <h5 className="">Durasi</h5>
+            <h5 className="">Harga Per Orang</h5>
+          </div>
+        </div>
+      </div>
+      <Ticket filteredTickets={filteredTicket} tickets={ticket} />
       <Footer />
     </>
   );

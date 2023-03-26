@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 import { UserContext } from "../context/userContext";
 
-
 export default function IndexAdmin() {
   const [state] = useContext(UserContext);
   const [showTicket, setShowTicket] = useState(null);
@@ -51,14 +50,13 @@ export default function IndexAdmin() {
                       {data.ticket.start_station.name} - {data.ticket.destination_station.name}
                     </td>
                     <td>bca.png</td>
-                    <td>{data.status}</td>
+                    {data.status === "pending" && <td style={{ color: "#FF9900" }}>{data.status}</td>}
+                    {data.status === "success" && <td style={{ color: "#78A85A" }}>{data.status}</td>}
+                    {data.status === "failed" && <td style={{ color: "#E83939" }}>{data.status}</td>}
                     <td className="">
                       <div className="d-flex">
                         <div>
                           <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
-                        </div>
-                        <div>
-                          <img onClick={handleShowEdit} src="/images/IconEdit.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
                         </div>
                         <div>
                           <img src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
