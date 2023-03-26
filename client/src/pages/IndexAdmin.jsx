@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Table from "react-bootstrap/Table";
 import Footer from "../component/Footer";
 import ModalDetailTicket from "../component/ModalDetailTicket";
 import ModalEdit from "../component/ModalEdit";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
+import { UserContext } from "../context/userContext";
+
 
 export default function IndexAdmin() {
+  const [state] = useContext(UserContext);
   const [showTicket, setShowTicket] = useState(null);
   const [showEdit, setShowEdit] = useState(null);
 
@@ -43,7 +46,7 @@ export default function IndexAdmin() {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{data.user.fullname}</td>
+                    <td>{data.user.username}</td>
                     <td>
                       {data.ticket.start_station.name} - {data.ticket.destination_station.name}
                     </td>
