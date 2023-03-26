@@ -10,6 +10,7 @@ import ModalRegister from "./ModalRegister";
 import Profile from "../assets/image/blank-profile.png";
 import Logout from "../assets/image/Logout.png";
 import IconAddTicket from "../assets/image/more.png";
+import Train from "../assets/image/Train.png";
 import IconPayment from "../assets/image/bill.png";
 import Ticket from "../assets/image/Ticket.png";
 
@@ -113,6 +114,11 @@ export default function Header(props) {
                     Admin
                   </h5>
                   <NavDropdown align="end" id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
+                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-station">
+                      <img src={Train} alt="" style={{width: "40px", height: "40px"}} />
+                      <span className="ms-3 fw-bold">Add Station</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-ticket">
                       <img src={IconAddTicket} alt="" />
                       <span className="ms-3 fw-bold">Add Ticket</span>

@@ -6,6 +6,7 @@ import MyTicket from "./pages/MyTiket";
 import Payment from "./pages/Payment";
 import IndexAdmin from "./pages/IndexAdmin";
 import AddTicket from "./pages/AddTicket";
+import AddStation from "./pages/AddStation";
 
 import { UserContext } from "./context/userContext";
 import React, { useContext } from "react";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/my-ticket" element={<MyTicket />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admin/add-ticket" element={<AddTicket />} />
+        <Route path="/admin/add-station" element={<AddStation />} />
 
         {/* Route User */}
         {/* <Route path="/" element={<UserRoute />}> */}

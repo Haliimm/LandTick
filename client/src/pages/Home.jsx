@@ -40,34 +40,25 @@ export default function Home(props) {
   const [filteredTicket, setFilteredTicket] = useState([]);
   const handleFilter = (e) => {
     e.preventDefault();
-    const filtered = tickets.filter((ticket) => {
-      return (
-        (formSearch.start_station_id === "" || ticket.StartStationID === formSearch.start_station_id) &&
-        (formSearch.destination_station_id === "" || ticket.EndStationID === formSearch.destination_station_id) &&
-        (formSearch.start_date === "" || ticket.start_date === formSearch.start_date) &&
-        formSearch.qty <= ticket.qty
-      );
-    });
+    const filtered = tickets?.filter(
+      (ticket) =>
+        (formSearch.start_station_id === "" ||
+          ticket.StartStationID === formSearch.start_station_id) &&
+        (formSearch.destination_station_id === "" ||
+          ticket.EndStationID === formSearch.destination_station_id)
+    );
     setFilteredTicket(filtered);
+    console.log("this is filtered data", filtered);
   };
 
-  const resetFilter = () => {
-    setFilteredTicket([]);
-  };
-
-  const [station, setStation] = useState();
-  const getStation = async () => {
-    try {
-      const response = await API.get("/stations");
-      setStation(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  let { data: stations, refetch } = useQuery("stationsCache", async () => {
+    const response = await API.get("/stations");
+    return response.data.data.stations;
+  });
 
   useEffect(() => {
-    getStation();
-  }, []);
+    refetch();
+  }, [stations]);
 
   return (
     <>
@@ -87,10 +78,10 @@ export default function Home(props) {
               <div style={{ width: "400px" }}>
                 <h5>Asal</h5>
                 <div className="">
-                  <Form.Select aria-label="Default select example" name="start_station_id" onChange={handleChange}>
-                  <option hidden>Start Station</option>
-                    {station?.map((item, index) => (
-                      <option key={index} value={item?.id}>
+                  <Form.Select aria-label="Default select example" name="start_station_id" onChange={handleChange} value={formSearch.start_station_id}>
+                    <option hidden>Start Station</option>
+                    {stations?.map((item) => (
+                      <option key={item.id} value={item?.id}>
                         {item.name}
                       </option>
                     ))}
@@ -112,10 +103,10 @@ export default function Home(props) {
               <div className="ms-3" style={{ width: "400px" }}>
                 <h5>Tujuan</h5>
                 <div className="">
-                  <Form.Select aria-label="Default select example" name="destination_station_id" onChange={handleChange}>
+                  <Form.Select aria-label="Default select example" name="destination_station_id" onChange={handleChange} value={formSearch.destination_station_id}>
                     <option hidden>End Station</option>
-                    {station?.map((item, index) => (
-                      <option key={index} value={item?.id}>
+                    {stations?.map((item) => (
+                      <option key={item.id} value={item?.id}>
                         {item.name}
                       </option>
                     ))}
@@ -140,7 +131,13 @@ export default function Home(props) {
                       <option value="3">3</option>
                     </Form.Select>
                   </div>
-                  <Button onClick={(e) => handleFilter(e)} type="submit" className="ms-3 fw-bold" variant="outline-light" style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", width: "134px", height: "auto", marginTop: "30px" }}>
+                  <Button
+                    onClick={(e) => handleFilter(e)}
+                    type="submit"
+                    className="ms-3 fw-bold"
+                    variant="outline-light"
+                    style={{ background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)", width: "134px", height: "auto", marginTop: "30px" }}
+                  >
                     Cari Ticket
                   </Button>
                 </div>
