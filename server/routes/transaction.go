@@ -18,6 +18,6 @@ func TransactionRoutes(e *echo.Group) {
 	e.POST("/create-trans/:id", middleware.Auth(h.CreateTransaction))
 	e.GET("/order-user", middleware.Auth(h.GetTransByUser))
 	e.GET("/get-idpayment/:id", middleware.Auth(h.GetIdPayment))
-	e.POST("/payments/:id", middleware.Auth(h.PaymentTransaction))
+	e.GET("/payments/:id", middleware.Auth(h.PaymentTransaction))
 	e.POST("/notification", h.Notification)
 }
