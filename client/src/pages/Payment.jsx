@@ -117,7 +117,7 @@ export default function Payment() {
                             </tr>
                             <tr>
                               <td className="text-secondary">{ticket.id}</td>
-                              <td className="text-secondary">{state.user.username}</td>
+                              <td className="text-secondary">{ticket.user.fullname}</td>
                               <td className="text-secondary">{ticket.user.phone}</td>
                               <td className="text-secondary">{ticket.user.email}</td>
                             </tr>

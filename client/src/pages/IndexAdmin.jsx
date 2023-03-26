@@ -35,7 +35,6 @@ export default function IndexAdmin() {
                 <th>No</th>
                 <th>Users</th>
                 <th>Tiket</th>
-                <th>Bukti Transfer</th>
                 <th>Status Payment</th>
                 <th>Action</th>
               </tr>
@@ -45,11 +44,10 @@ export default function IndexAdmin() {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{data.user.username}</td>
+                    <td>{data.user.fullname}</td>
                     <td>
                       {data.ticket.start_station.name} - {data.ticket.destination_station.name}
                     </td>
-                    <td>bca.png</td>
                     {data.status === "pending" && <td style={{ color: "#FF9900" }}>{data.status}</td>}
                     {data.status === "success" && <td style={{ color: "#78A85A" }}>{data.status}</td>}
                     {data.status === "failed" && <td style={{ color: "#E83939" }}>{data.status}</td>}
