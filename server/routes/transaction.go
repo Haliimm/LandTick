@@ -16,6 +16,7 @@ func TransactionRoutes(e *echo.Group) {
 
 	e.GET("/transactions", h.FindTransaction)
 	e.POST("/create-trans/:id", middleware.Auth(h.CreateTransaction))
+	e.DELETE("/transaction/:id", h.DeleteTransaction)
 	e.GET("/order-user", middleware.Auth(h.GetTransByUser))
 	e.GET("/get-idpayment/:id", middleware.Auth(h.GetIdPayment))
 	e.GET("/payments/:id", middleware.Auth(h.PaymentTransaction))

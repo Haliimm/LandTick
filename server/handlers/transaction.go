@@ -242,6 +242,20 @@ func SendMail(status string, transaction models.Transaction, user models.User) {
 	}
   }
 
+  func (h *handlerTransaction) DeleteTransaction(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	transaction, err := h.TransactionRepository.GetTransaction(id)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	data, err := h.TransactionRepository.DeleteTransaction(transaction)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
+	}
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: data})
+}
+
 func convertResponseTransaction(t models.Transaction) transactiondto.TransactionResponse {
 	return transactiondto.TransactionResponse{
 		ID:            t.ID,

@@ -1,28 +1,76 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Footer from "../component/Footer";
 import ModalDetailTicket from "../component/ModalDetailTicket";
-import ModalEdit from "../component/ModalEdit";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { API } from "../config/api";
 import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
+import DeleteData from "../component/ModalDeleteTransaction";
+import Swal from "sweetalert2";
 
 export default function IndexAdmin() {
+  const navigate = useNavigate();
   const [state] = useContext(UserContext);
   const [showTicket, setShowTicket] = useState(null);
-  const [showEdit, setShowEdit] = useState(null);
+  // Variabel for delete product data
+  const [idDelete, setIdDelete] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  // Modal Confirm delete data
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // For get id product & show modal confirm delete data
+  const handleDelete = (id) => {
+    setIdDelete(id);
+    handleShow();
+  };
 
   const handleShowTicket = () => setShowTicket(true);
   const handleCloseTicket = () => setShowTicket(false);
 
-  const handleShowEdit = () => setShowEdit(true);
-  const handleCloseEdit = () => setShowEdit(false);
-
-  let { data: transactionList } = useQuery("allTansactionCache", async () => {
+  let { data: transactionList, refetch } = useQuery("allTansactionCache", async () => {
     const response = await API.get("/transactions");
     return response.data.data;
   });
   console.log(transactionList);
+
+  // If confirm is true, execute delete data
+  const deleteById = useMutation(async (id) => {
+    try {
+      const response = await API.delete(`/transactions/${id}`);
+      console.log(response);
+      refetch();
+      navigate("/");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Delete Success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Delete Failed",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    if (confirmDelete) {
+      // Close modal confirm delete data
+      handleClose();
+      // execute delete data by id function
+      deleteById.mutate(idDelete);
+      setConfirmDelete(null);
+      // window.location.reload();
+    }
+  }, [confirmDelete]);
 
   return (
     <>
@@ -57,7 +105,7 @@ export default function IndexAdmin() {
                           <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
                         </div>
                         <div>
-                          <img src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                          <img onClick={() => handleDelete(data.id)} src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
                         </div>
                       </div>
                     </td>
@@ -70,7 +118,7 @@ export default function IndexAdmin() {
       </div>
       <Footer />
       <ModalDetailTicket show={showTicket} onHide={handleCloseTicket} />
-      <ModalEdit show={showEdit} onHide={handleCloseEdit} />
+      <DeleteData setConfirmDelete={setConfirmDelete} show={show} handleClose={handleClose} />
     </>
   );
 }
