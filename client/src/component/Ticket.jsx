@@ -68,7 +68,7 @@ export default function Ticket(props) {
           {tickets?.map((ticket, index) => (
             <Card
               key={index}
-              className="my-5 cursor-pointer"
+              className="my-5 cursor-pointer shadow"
               style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px" }}
               onClick={() => {
                 state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);

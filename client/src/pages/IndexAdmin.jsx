@@ -3,6 +3,8 @@ import Table from "react-bootstrap/Table";
 import Footer from "../component/Footer";
 import ModalDetailTicket from "../component/ModalDetailTicket";
 import ModalEdit from "../component/ModalEdit";
+import { useQuery } from "react-query";
+import { API } from "../config/api";
 
 export default function IndexAdmin() {
   const [showTicket, setShowTicket] = useState(null);
@@ -13,6 +15,12 @@ export default function IndexAdmin() {
 
   const handleShowEdit = () => setShowEdit(true);
   const handleCloseEdit = () => setShowEdit(false);
+
+  let { data: transactionList } = useQuery("allTansactionCache", async () => {
+    const response = await API.get("/transactions");
+    return response.data.data;
+  });
+  console.log(transactionList);
 
   return (
     <>
@@ -31,26 +39,32 @@ export default function IndexAdmin() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Halim Awaludein</td>
-                <td>Surabaya - Jakarta</td>
-                <td>bca.png</td>
-                <td>Pending</td>
-                <td className="">
-                  <div className="d-flex">
-                    <div>
-                      <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
-                    </div>
-                    <div>
-                      <img onClick={handleShowEdit} src="/images/IconEdit.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
-                    </div>
-                    <div>
-                      <img src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              {transactionList?.map((data, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{data.user.fullname}</td>
+                    <td>
+                      {data.ticket.start_station.name} - {data.ticket.destination_station.name}
+                    </td>
+                    <td>bca.png</td>
+                    <td>{data.status}</td>
+                    <td className="">
+                      <div className="d-flex">
+                        <div>
+                          <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
+                        </div>
+                        <div>
+                          <img onClick={handleShowEdit} src="/images/IconEdit.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                        </div>
+                        <div>
+                          <img src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>

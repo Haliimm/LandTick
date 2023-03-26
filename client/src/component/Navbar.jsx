@@ -127,7 +127,7 @@ export default function Header(props) {
               ) : (
                 <Nav className="ms-auto gap-3">
                   <h5 className="fw-bold" style={{ color: "#EC7A7A", marginTop: "20px" }}>
-                    User
+                    {state.user.username}
                   </h5>
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
                     <NavDropdown.Item href="/my-ticket">
