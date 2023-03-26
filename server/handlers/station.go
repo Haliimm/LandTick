@@ -27,7 +27,7 @@ func (h *handlerStation) FindAllStation(c echo.Context) error {
 	}
 
 	response := dto.SuccessResult{
-		Status: "success",
+		Status: http.StatusOK,
 		Data: map[string][]models.Station{
 			"stations": stations,
 		},
@@ -43,14 +43,14 @@ func (h *handlerStation) GetStationById(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, dto.SuccessResult{Status: "Success", Data: station})
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: station})
 
 }
 
 func (h *handlerStation) CreateStation(c echo.Context) error {
 	request := stationdto.CreateStationRequest{
 		Name: c.FormValue("name"),
-		City: c.FormValue("city"),
+		Kota: c.FormValue("kota"),
 	}
 	validation := validator.New()
 	err := validation.Struct(request)
@@ -60,7 +60,7 @@ func (h *handlerStation) CreateStation(c echo.Context) error {
 
 	station := models.Station{
 		Name: request.Name,
-		City: request.City,
+		Kota: request.Kota,
 	}
 
 	data, err := h.StationRepository.CreateStation(station)
@@ -68,7 +68,7 @@ func (h *handlerStation) CreateStation(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, dto.SuccessResult{Status: "Success", Data: data})
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: data})
 }
 
 func (h *handlerStation) UpdateStation(c echo.Context) error {
@@ -80,22 +80,22 @@ func (h *handlerStation) UpdateStation(c echo.Context) error {
 
 	request := stationdto.UpdateStationRequest{
 		Name: c.FormValue("name"),
-		City: c.FormValue("city"),
+		Kota: c.FormValue("kota"),
 	}
 
 	if request.Name != "" {
 		station.Name = request.Name
 	}
 
-	if request.City != "" {
-		station.City = request.City
+	if request.Kota != "" {
+		station.Kota = request.Kota
 	}
 
 	data, err := h.StationRepository.UpdateStation(station)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, dto.SuccessResult{Status: "Success", Data: data})
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: data})
 }
 
 func (h *handlerStation) DeleteStation(c echo.Context) error {
@@ -109,5 +109,5 @@ func (h *handlerStation) DeleteStation(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, dto.SuccessResult{Status: "Delete Success", Data: data})
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: data})
 }
