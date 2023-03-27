@@ -16,7 +16,7 @@ export default function AddTicket() {
     destination_station_id: "",
     arrival_time: "",
     price: "",
-    qty: "",
+    stock: "",
   });
   console.log(form);
 
@@ -44,7 +44,7 @@ export default function AddTicket() {
       formData.set("destination_station_id", form.destination_station_id);
       formData.set("arrival_time", form.arrival_time);
       formData.set("price", form.price);
-      formData.set("qty", form.qty);
+      formData.set("stock", form.stock);
 
       const response = await API.post("/ticket", formData);
       if (response.status === 200) {
@@ -64,7 +64,7 @@ export default function AddTicket() {
           destination_station_id: "",
           arrival_time: "",
           price: "",
-          qty: "",
+          stock: "",
         });
       }
     } catch (error) {
@@ -140,7 +140,7 @@ export default function AddTicket() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Control type="number" name="qty" min={0} placeholder="Qty" onChange={handleChange} value={form.qty} />
+            <Form.Control type="number" name="stock" min={0} placeholder="Qty" onChange={handleChange} value={form.stock} />
           </Form.Group>
 
           <Button className="mt-5" variant="outline-light fw-bold" type="submit" style={{ width: "535px", height: "50px", background: "#0ACF83", marginLeft: "282px" }}>
