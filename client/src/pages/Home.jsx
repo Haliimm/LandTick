@@ -29,6 +29,7 @@ export default function Home(props) {
       ...formSearch,
       [e.target.name]: e.target.value,
     });
+    console.log(formSearch);
   };
 
   let { data: tickets } = useQuery("ticketCache", async () => {
@@ -36,15 +37,15 @@ export default function Home(props) {
 
     return response.data.data;
   });
+  // tickets?.map((tiket) => {console.log(tiket)})
 
   const [filteredTicket, setFilteredTicket] = useState([]);
   const handleFilter = (e) => {
     e.preventDefault();
     const filtered = tickets?.filter(
-      (ticket) =>
-      (formSearch.start_station_id === "" || ticket.start_station_id === formSearch.start_station_id) &&
-      (formSearch.destination_station_id === "" || ticket.destination_station_id === formSearch.destination_station_id) &&
-      (formSearch.start_date === "" || ticket.start_date === formSearch.start_date) && (formSearch.qty <= ticket.qty)
+      (ticket) => formSearch.start_station_id == "" || ticket.StartStationID == formSearch.start_station_id &&
+      (formSearch.destination_station_id == "" || ticket.EndStationID == formSearch.destination_station_id) &&
+      (formSearch.start_date == "" || ticket.start_date == formSearch.start_date) && (formSearch.qty <= ticket.qty)
     );
     setFilteredTicket(filtered);
     console.log("this is filtered data", filtered);

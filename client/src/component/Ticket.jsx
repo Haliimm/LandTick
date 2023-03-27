@@ -49,52 +49,106 @@ export default function Ticket({ filteredTickets }) {
     }
   };
 
-  return (
-    <>
-      {tickets < 1 ? (
-        <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Has Not Added Tickets</h5>
-      ) : (
-        <>
-          {filteredTickets?.map((ticket, index) => (
-            <Card
-              key={index}
-              className="my-5 shadow"
-              style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px", cursor: "pointer" }}
-              onClick={() => {
-                state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);
-                HandleBuy(ticket.id);
-              }}
-            >
-              <div className="d-flex justify-content-around mt-3">
-                <div className="ms-5">
-                  <h5 className="fw-bold">{ticket.train_name}</h5>
-                  <h5 className="text-secondary">{ticket.train_type}</h5>
+  if (filteredTickets !== undefined && filteredTickets.length > 0) {
+    return (
+      <>
+        {tickets < 1 ? (
+          <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Has Not Added Tickets</h5>
+        ) : (
+          <>
+            {filteredTickets?.map((ticket, index) => (
+              <Card
+                key={index}
+                className="my-5 shadow"
+                style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px", cursor: "pointer" }}
+                onClick={() => {
+                  state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);
+                  HandleBuy(ticket.id);
+                }}
+              >
+                <div className="d-flex justify-content-around mt-3">
+                  <div className="ms-5">
+                    <h5 className="fw-bold">{ticket.train_name}</h5>
+                    <h5 className="text-secondary">{ticket.train_type}</h5>
+                  </div>
+                  <div className="">
+                    <h5 className="fw-bold">{ticket.start_time}</h5>
+                    <h5 className="text-secondary">{ticket.StartStation.name}</h5>
+                  </div>
+                  <div className="flex align-items-center justify-content-center">
+                    <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
+                  </div>
+                  <div>
+                    <h5 className="fw-bold">{ticket.arrival_time}</h5>
+                    <h5 className="text-secondary">{ticket.EndStation.name}</h5>
+                  </div>
+                  <div>
+                    <h5 className="fw-bold">5j 05 m</h5>
+                  </div>
+                  <div>
+                    <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
+                  </div>
                 </div>
-                <div className="">
-                  <h5 className="fw-bold">{ticket.start_time}</h5>
-                  <h5 className="text-secondary">{ticket.StartStation.name}</h5>
-                </div>
-                <div className="flex align-items-center justify-content-center">
-                  <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
-                </div>
-                <div>
-                  <h5 className="fw-bold">{ticket.arrival_time}</h5>
-                  <h5 className="text-secondary">{ticket.EndStation.name}</h5>
-                </div>
-                <div>
-                  <h5 className="fw-bold">5j 05 m</h5>
-                </div>
-                <div>
-                  <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
-                </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
 
-          {showSuccess && <ModalSuccess show={showSuccess} onHide={handleCloseSuccess} handleSuccess={popSuccess} />}
-          {showLogin && <ModalLogin show={showLogin} setShow={setShowLogin} onHide={handleClose} />}
-        </>
-      )}
-    </>
-  );
+            {showSuccess && <ModalSuccess show={showSuccess} onHide={handleCloseSuccess} handleSuccess={popSuccess} />}
+            {showLogin && <ModalLogin show={showLogin} setShow={setShowLogin} onHide={handleClose} />}
+          </>
+        )}
+      </>
+    );
+  } else {
+    {
+      // return all tickets
+    }
+    return (
+      <>
+        {tickets < 1 ? (
+          <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Has Not Added Tickets</h5>
+        ) : (
+          <>
+            {tickets?.map((ticket, index) => (
+              <Card
+                key={index}
+                className="my-5 shadow"
+                style={{ marginTop: "20px", width: "1220px", height: "100px", marginLeft: "60px", cursor: "pointer" }}
+                onClick={() => {
+                  state.isLogin === false ? setShowLogin(true) : setShowsuccess(true);
+                  HandleBuy(ticket.id);
+                }}
+              >
+                <div className="d-flex justify-content-around mt-3">
+                  <div className="ms-5">
+                    <h5 className="fw-bold">{ticket.train_name}</h5>
+                    <h5 className="text-secondary">{ticket.train_type}</h5>
+                  </div>
+                  <div className="">
+                    <h5 className="fw-bold">{ticket.start_time}</h5>
+                    <h5 className="text-secondary">{ticket.StartStation.name}</h5>
+                  </div>
+                  <div className="flex align-items-center justify-content-center">
+                    <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
+                  </div>
+                  <div>
+                    <h5 className="fw-bold">{ticket.arrival_time}</h5>
+                    <h5 className="text-secondary">{ticket.EndStation.name}</h5>
+                  </div>
+                  <div>
+                    <h5 className="fw-bold">5j 05 m</h5>
+                  </div>
+                  <div>
+                    <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
+                  </div>
+                </div>
+              </Card>
+            ))}
+
+            {showSuccess && <ModalSuccess show={showSuccess} onHide={handleCloseSuccess} handleSuccess={popSuccess} />}
+            {showLogin && <ModalLogin show={showLogin} setShow={setShowLogin} onHide={handleClose} />}
+          </>
+        )}
+      </>
+    );
+  }
 }
