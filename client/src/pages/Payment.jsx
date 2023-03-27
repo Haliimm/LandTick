@@ -146,7 +146,7 @@ export default function Payment() {
                             <h5 className="fw-bold me-5 mt-2">{formatRupiah(ticket.ticket.price)}</h5>
                           </div>
                         </Card>
-                        <Button
+                        {/* <Button
                           onClick={() => handlePay.mutate(ticket?.id)}
                           type="submit"
                           variant="outline-light"
@@ -154,7 +154,7 @@ export default function Payment() {
                           style={{ width: "446px", height: "auto", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}
                         >
                           Bayar Sekarang
-                        </Button>
+                        </Button> */}
                       </div>
                       <div className="ms-5 mt-5">
                         <div className="">
