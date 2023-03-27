@@ -135,12 +135,12 @@ export default function Payment() {
                             </h5>
                             <h5 className="me-5">{formatRupiah(ticket.ticket.price)}</h5>
                           </div>
-                          <div className="d-flex my-auto justify-content-between">
+                          {/* <div className="d-flex my-auto justify-content-between">
                             <h5 className="ms-5">
                             {ticket?.ticket.train_name} (Childrens) x 1{ticket?.ticket.qty}
                             </h5>
                             <h5 className="me-5">{formatRupiah(ticket.ticket.price)}</h5>
-                          </div>
+                          </div> */}
                           <div className="d-flex justify-content-between" style={{ background: "#E6E6E6" }}>
                             <h5 className="ms-5 mt-2">Total</h5>
                             <h5 className="fw-bold me-5 mt-2">{formatRupiah(ticket.ticket.price)}</h5>
