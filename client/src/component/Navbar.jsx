@@ -14,7 +14,6 @@ import Train from "../assets/image/Train.png";
 import IconPayment from "../assets/image/bill.png";
 import Ticket from "../assets/image/Ticket.png";
 
-
 export default function Header(props) {
   let navigate = useNavigate();
   const [state, dispatch] = useContext(UserContext);
@@ -116,13 +115,23 @@ export default function Header(props) {
                   </h5>
                   <NavDropdown align="end" id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
                     <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-station">
-                      <img src={Train} alt="" style={{width: "40px", height: "40px"}} />
+                      <img src={Train} alt="" style={{ width: "40px", height: "40px" }} />
                       <span className="ms-3 fw-bold">Add Station</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item className="d-flex align-items-center" href="/admin/add-ticket">
                       <img src={IconAddTicket} alt="" />
                       <span className="ms-3 fw-bold">Add Ticket</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
+                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/list-station">
+                      <img src={Train} alt="" style={{ width: "40px", height: "40px" }} />
+                      <span className="ms-3 fw-bold">List Station</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
+                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/list-ticket">
+                      <img src={Ticket} alt="" style={{ width: "40px", height: "40px" }} />
+                      <span className="ms-3 fw-bold">List Ticket</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
                     <NavDropdown.Item className="d-flex align-items-center" onClick={logout}>
@@ -137,7 +146,7 @@ export default function Header(props) {
                     {state.user.username}
                   </h5>
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
-                  <NavDropdown.Item href="/my-profile">
+                    <NavDropdown.Item href="/my-profile">
                       <img src={Profile} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">My Profile</span>
                     </NavDropdown.Item>

@@ -9,6 +9,8 @@ import IndexAdmin from "./pages/IndexAdmin";
 import AddTicket from "./pages/AddTicket";
 import AddStation from "./pages/AddStation";
 import Profile from "./pages/Profile";
+import ListTicket from "./pages/ListTicket";
+import ListStations from "./pages/ListStations";
 
 import { UserContext } from "./context/userContext";
 import React, { useContext } from "react";
@@ -27,7 +29,9 @@ function App() {
         <Route path="/my-ticket-approve" element={<MyTicketApprove />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admin/add-ticket" element={<AddTicket />} />
+        <Route path="/admin/list-ticket" element={<ListTicket />} />
         <Route path="/admin/add-station" element={<AddStation />} />
+        <Route path="/admin/list-station" element={<ListStations />} />
         <Route path="/my-profile" element={<Profile />} />
 
         {/* Route User */}
