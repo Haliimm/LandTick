@@ -168,20 +168,20 @@ func (h *handlerTransaction) Notification(c echo.Context) error {
 	user, _ := h.UserRepository.GetUserID(order_id)
 	if transactionStatus == "capture" {
 		if fraudStatus == "challenge" {
-			h.TransactionRepository.UpdateTransaction("pending", orderId)
+			h.TransactionRepository.UpdateTransaction("pending", order_id)
 		} else if fraudStatus == "accept" {
 			SendMail("success", transaction, user)
-			h.TransactionRepository.UpdateTransaction("success", orderId)
+			h.TransactionRepository.UpdateTransaction("success", order_id)
 		}
 	} else if transactionStatus == "settlement" {
 		SendMail("success", transaction, user)
-		h.TransactionRepository.UpdateTransaction("success", orderId)
+		h.TransactionRepository.UpdateTransaction("success", order_id)
 	} else if transactionStatus == "deny" {
-		h.TransactionRepository.UpdateTransaction("failed", orderId)
+		h.TransactionRepository.UpdateTransaction("failed", order_id)
 	} else if transactionStatus == "cancel" || transactionStatus == "expire" {
-		h.TransactionRepository.UpdateTransaction("failed", orderId)
+		h.TransactionRepository.UpdateTransaction("failed", order_id)
 	} else if transactionStatus == "pending" {
-		h.TransactionRepository.UpdateTransaction("pending", orderId)
+		h.TransactionRepository.UpdateTransaction("pending", order_id)
 	}
 
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: notificationPayload})
@@ -201,7 +201,7 @@ func SendMail(status string, transaction models.Transaction, user models.User) {
   
 	  mailer := gomail.NewMessage()
 	  mailer.SetHeader("From", CONFIG_SENDER_NAME)
-	  mailer.SetHeader("To", "halimawaludienkhafifie@gmail.com")
+	  mailer.SetHeader("To", user.Email)
 	  mailer.SetHeader("Subject", "Transaction Status")
 	  mailer.SetBody("text/html", fmt.Sprintf(`<!DOCTYPE html>
 	  <html lang="en">

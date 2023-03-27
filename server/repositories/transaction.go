@@ -16,7 +16,7 @@ type TransactionRepository interface {
 	GetOneTransaction(ID string) (models.Transaction, error)
 	Payment(payment models.Transaction) (models.Transaction, error)
 	GetPaymentByIdTrans(ID int) (models.Transaction, error)
-	UpdateTransaction(status string, ID string) (models.Transaction, error)
+	UpdateTransaction(status string, ID int) (models.Transaction, error)
 	DeleteTransaction(transaction models.Transaction) (models.Transaction, error)
 }
 
@@ -65,7 +65,7 @@ func (r *repository) GetTicketTransaction(UserID int) ([]models.Transaction, err
 	return transaction, err
 }
 
-func (r *repository) UpdateTransaction(status string, ID string) (models.Transaction, error) {
+func (r *repository) UpdateTransaction(status string, ID int) (models.Transaction, error) {
 	var transaction models.Transaction
 	r.db.Preload("Ticket").First(&transaction, ID)
 
