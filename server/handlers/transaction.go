@@ -77,7 +77,7 @@ func (h *handlerTransaction) CreateTransaction(c echo.Context) error {
 		Total:    subTotal,
 		UserID:   userId,
 		Qty:      1,
-		Status:   "pending",
+		Status:   "success",
 	}
 
 	newTransaction, err := h.TransactionRepository.CreateTransaction(transaction)
@@ -201,7 +201,7 @@ func SendMail(status string, transaction models.Transaction, user models.User) {
   
 	  mailer := gomail.NewMessage()
 	  mailer.SetHeader("From", CONFIG_SENDER_NAME)
-	  mailer.SetHeader("To", user.Email)
+	  mailer.SetHeader("To", "halimawaludienkhafifie@gmail.com")
 	  mailer.SetHeader("Subject", "Transaction Status")
 	  mailer.SetBody("text/html", fmt.Sprintf(`<!DOCTYPE html>
 	  <html lang="en">
