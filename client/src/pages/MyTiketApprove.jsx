@@ -116,9 +116,9 @@ export default function MyTicket() {
                       </tbody>
                     </table>
                     <div>
-                      <Button onClick={() => handlePayment(item.id)} className="mt-5 ms-4 me-3" variant="outline-light text-white fw-bold" style={{ width: "206px", height: "40px", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}>
+                      {/* <Button onClick={() => handlePayment(item.id)} className="mt-5 ms-4 me-3" variant="outline-light text-white fw-bold" style={{ width: "206px", height: "40px", background: "linear-gradient(90deg, #EC7AB7 -0.6%, #EC7A7A 100%)" }}>
                         Pay Now
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </div>
