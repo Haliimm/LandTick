@@ -131,13 +131,13 @@ export default function Payment() {
                         <Card style={{ width: "446px", height: "137px" }}>
                           <div className="d-flex my-auto justify-content-between">
                             <h5 className="ms-5">
-                              {ticket.train_name} (Adult) x 1{ticket?.ticket.qty}
+                            {ticket?.ticket.train_name} (Adult) x 1{ticket?.ticket.qty}
                             </h5>
                             <h5 className="me-5">{formatRupiah(ticket.ticket.price)}</h5>
                           </div>
                           <div className="d-flex my-auto justify-content-between">
                             <h5 className="ms-5">
-                              {ticket.train_name} (Childrens) x 1{ticket?.ticket.qty}
+                            {ticket?.ticket.train_name} (Childrens) x 1{ticket?.ticket.qty}
                             </h5>
                             <h5 className="me-5">{formatRupiah(ticket.ticket.price)}</h5>
                           </div>

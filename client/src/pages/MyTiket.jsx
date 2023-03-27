@@ -32,6 +32,7 @@ export default function MyTicket() {
     }
 }
 
+
   return (
     <>
       <Card className="mt-2 rounded-none shadow-none border-0 ml-20">

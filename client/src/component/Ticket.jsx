@@ -70,7 +70,7 @@ export default function Ticket(props) {
                   <h5 className="fw-bold">{ticket.train_name}</h5>
                   <h5 className="text-secondary">{ticket.train_type}</h5>
                 </div>
-                <div className="ms-2">
+                <div className="">
                   <h5 className="fw-bold" >
                     {ticket.start_time}
                   </h5>
