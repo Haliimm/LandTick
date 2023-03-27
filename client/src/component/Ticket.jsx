@@ -7,7 +7,7 @@ import ModalLogin from "./ModalLogin";
 import { useNavigate } from "react-router";
 import ModalSuccess from "../component/ModalSuccessTicket";
 
-export default function Ticket(props) {
+export default function Ticket({ filteredTickets }) {
   let navigate = useNavigate();
   const [state] = useContext(UserContext);
   const [showLogin, setShowLogin] = useState(false);
@@ -55,7 +55,7 @@ export default function Ticket(props) {
         <h5 className="mt-5 d-flex justify-content-center fw-bold">Admin Has Not Added Tickets</h5>
       ) : (
         <>
-          {tickets?.map((ticket, index) => (
+          {filteredTickets?.map((ticket, index) => (
             <Card
               key={index}
               className="my-5 shadow"
@@ -71,28 +71,18 @@ export default function Ticket(props) {
                   <h5 className="text-secondary">{ticket.train_type}</h5>
                 </div>
                 <div className="">
-                  <h5 className="fw-bold" >
-                    {ticket.start_time}
-                  </h5>
-                  <h5 className="text-secondary" >
-                    {ticket.StartStation.name}
-                  </h5>
+                  <h5 className="fw-bold">{ticket.start_time}</h5>
+                  <h5 className="text-secondary">{ticket.StartStation.name}</h5>
                 </div>
                 <div className="flex align-items-center justify-content-center">
                   <img src="/images/Arrow.png" alt="" className="" style={{ marginLeft: "0px" }} />
                 </div>
                 <div>
-                  <h5 className="fw-bold">
-                    {ticket.arrival_time}
-                  </h5>
-                  <h5 className="text-secondary">
-                    {ticket.EndStation.name}
-                  </h5>
+                  <h5 className="fw-bold">{ticket.arrival_time}</h5>
+                  <h5 className="text-secondary">{ticket.EndStation.name}</h5>
                 </div>
                 <div>
-                  <h5 className="fw-bold">
-                    5j 05 m
-                  </h5>
+                  <h5 className="fw-bold">5j 05 m</h5>
                 </div>
                 <div>
                   <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>

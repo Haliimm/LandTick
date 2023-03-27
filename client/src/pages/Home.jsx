@@ -42,10 +42,9 @@ export default function Home(props) {
     e.preventDefault();
     const filtered = tickets?.filter(
       (ticket) =>
-        (formSearch.start_station_id === "" ||
-          ticket.StartStationID === formSearch.start_station_id) &&
-        (formSearch.destination_station_id === "" ||
-          ticket.EndStationID === formSearch.destination_station_id)
+      (formSearch.start_station_id === "" || ticket.start_station_id === formSearch.start_station_id) &&
+      (formSearch.destination_station_id === "" || ticket.destination_station_id === formSearch.destination_station_id) &&
+      (formSearch.start_date === "" || ticket.start_date === formSearch.start_date) && (formSearch.qty <= ticket.qty)
     );
     setFilteredTicket(filtered);
     console.log("this is filtered data", filtered);
