@@ -55,7 +55,7 @@ export default function AddTicket() {
   return (
     <>
       <div className="container mt-5">
-        <h1 className="fw-bold">Add Ticket</h1>
+        <h1 className="fw-bold">Add Station</h1>
         <Form
           className="mt-5"
           onSubmit={(e) => {

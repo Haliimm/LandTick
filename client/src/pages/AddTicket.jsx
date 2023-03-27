@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { API } from "../config/api";
 import { useMutation } from "react-query";
 import Swal from "sweetalert2";
+import { useQuery } from "react-query";
 
 export default function AddTicket() {
   const [form, setForm] = useState({
@@ -19,17 +20,10 @@ export default function AddTicket() {
   });
   console.log(form);
 
-  const [station, setStation] = useState();
-
-  const getStation = async () => {
-    try {
-      const response = await API.get("/stations");
-      setStation(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  let { data: stations, refetch } = useQuery("stationsCache", async () => {
+    const response = await API.get("/stations");
+    return response.data.data.stations;
+  });
 
   const handleChange = (e) => {
     setForm({
@@ -86,8 +80,8 @@ export default function AddTicket() {
   });
 
   useEffect(() => {
-    getStation();
-  }, []);
+    refetch();
+  }, [stations]);
 
   return (
     <>
@@ -117,8 +111,8 @@ export default function AddTicket() {
 
           <Form.Select className="mb-3" name="start_station_id" aria-label="Default select example" onChange={handleChange} value={form.start_station_id}>
             <option hidden>Stasiun Keberangkatan</option>
-            {station?.map((item, index) => (
-              <option key={index} value={item?.id}>
+            {stations?.map((item) => (
+              <option key={item.id} value={item?.id}>
                 {item.name}
               </option>
             ))}
@@ -130,8 +124,8 @@ export default function AddTicket() {
 
           <Form.Select className="mb-3" name="destination_station_id" aria-label="Default select example" onChange={handleChange} value={form.destination_station_id}>
             <option hidden>Stasiun Tujuan</option>
-            {station?.map((item, index) => (
-              <option key={index} value={item?.id}>
+            {stations?.map((item) => (
+              <option key={item.id} value={item?.id}>
                 {item.name}
               </option>
             ))}
