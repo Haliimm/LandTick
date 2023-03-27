@@ -3,10 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import Home from "./pages/Home";
 import MyTicket from "./pages/MyTiket";
+import MyTicketApprove from "./pages/MyTiketApprove";
 import Payment from "./pages/Payment";
 import IndexAdmin from "./pages/IndexAdmin";
 import AddTicket from "./pages/AddTicket";
 import AddStation from "./pages/AddStation";
+import Profile from "./pages/Profile";
 
 import { UserContext } from "./context/userContext";
 import React, { useContext } from "react";
@@ -22,9 +24,11 @@ function App() {
       <Routes>
         <Route path="/" element={state.user.role === "admin" ? <IndexAdmin /> : <Home />} />
         <Route path="/my-ticket" element={<MyTicket />} />
+        <Route path="/my-ticket-approve" element={<MyTicketApprove />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/admin/add-ticket" element={<AddTicket />} />
         <Route path="/admin/add-station" element={<AddStation />} />
+        <Route path="/my-profile" element={<Profile />} />
 
         {/* Route User */}
         {/* <Route path="/" element={<UserRoute />}> */}

@@ -14,6 +14,7 @@ import Train from "../assets/image/Train.png";
 import IconPayment from "../assets/image/bill.png";
 import Ticket from "../assets/image/Ticket.png";
 
+
 export default function Header(props) {
   let navigate = useNavigate();
   const [state, dispatch] = useContext(UserContext);
@@ -136,7 +137,12 @@ export default function Header(props) {
                     {state.user.username}
                   </h5>
                   <NavDropdown id="dropdown" title={<img src={Profile} alt="" className="rounded-circle" style={{ cursor: "pointer", objectFit: "cover", width: "50px", height: "50px" }} />}>
-                    <NavDropdown.Item href="/my-ticket">
+                  <NavDropdown.Item href="/my-profile">
+                      <img src={Profile} alt="" style={{ width: 40, height: 38.17 }} />
+                      <span className="ms-2 fw-bold">My Profile</span>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
+                    <NavDropdown.Item href="/my-ticket-approve">
                       <img src={Ticket} alt="" style={{ width: 40, height: 38.17 }} />
                       <span className="ms-2 fw-bold">My Ticket</span>
                     </NavDropdown.Item>
