@@ -49,6 +49,20 @@ export default function Ticket({ filteredTickets }) {
     }
   };
 
+  function toMinutes(time) {
+    time = /^(\d{1,2}):(\d{2})$/.exec(time);
+    return time[1] * 60 + +time[2];
+  }
+
+  function timeConvert(n) {
+    var num = n;
+    var hours = num / 60;
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return rhours + " Jam " + rminutes + " menit";
+  }
+
   if (filteredTickets !== undefined && filteredTickets.length > 0) {
     return (
       <>
@@ -83,7 +97,9 @@ export default function Ticket({ filteredTickets }) {
                     <h5 className="text-secondary">{ticket.EndStation.name}</h5>
                   </div>
                   <div>
-                    <h5 className="fw-bold">5j 05 m</h5>
+                    <h5 className="fw-bold">{timeConvert(
+                      toMinutes(ticket?.start_time, ticket?.arrival_time)
+                    )}</h5>
                   </div>
                   <div>
                     <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
@@ -135,7 +151,9 @@ export default function Ticket({ filteredTickets }) {
                     <h5 className="text-secondary">{ticket.EndStation.name}</h5>
                   </div>
                   <div>
-                    <h5 className="fw-bold">5j 05 m</h5>
+                    <h5 className="fw-bold">{timeConvert(
+                      toMinutes(ticket?.start_time, ticket?.arrival_time)
+                    )}</h5>
                   </div>
                   <div>
                     <h5 className="fw-bold text-danger">{formatRupiah(ticket.price)}</h5>
