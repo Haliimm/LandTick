@@ -124,7 +124,7 @@ export default function Header(props) {
                       <span className="ms-3 fw-bold">Add Ticket</span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
-                    <NavDropdown.Item className="d-flex align-items-center" href="/admin/list-station">
+                    {/* <NavDropdown.Item className="d-flex align-items-center" href="/admin/list-station">
                       <img src={Train} alt="" style={{ width: "40px", height: "40px" }} />
                       <span className="ms-3 fw-bold">List Station</span>
                     </NavDropdown.Item>
@@ -133,7 +133,7 @@ export default function Header(props) {
                       <img src={Ticket} alt="" style={{ width: "40px", height: "40px" }} />
                       <span className="ms-3 fw-bold">List Ticket</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} />
+                    <NavDropdown.Divider style={{ background: "#EC7AB7" }} /> */}
                     <NavDropdown.Item className="d-flex align-items-center" onClick={logout}>
                       <img src={Logout} alt="" />
                       <span className="ms-3 fw-bold">Logout</span>

@@ -38,7 +38,7 @@ export default function IndexAdmin() {
   // If confirm is true, execute delete data
   const deleteById = useMutation(async (id) => {
     try {
-      const response = await API.delete(`/ticket/${id}`);
+      const response = await API.delete(`/station/${id}`);
       console.log(response);
       refetch();
       navigate("/");
@@ -86,24 +86,19 @@ export default function IndexAdmin() {
               </tr>
             </thead>
             <tbody>
-              {ticketList?.map((data, index) => {
+              {ticketList?.map((station, index) => {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{data.user.fullname}</td>
-                    <td>
-                      {data.ticket.start_station.name} - {data.ticket.destination_station.name}
-                    </td>
-                    {data.status === "pending" && <td style={{ color: "#FF9900" }}>{data.status}</td>}
-                    {data.status === "success" && <td style={{ color: "#78A85A" }}>{data.status}</td>}
-                    {data.status === "failed" && <td style={{ color: "#E83939" }}>{data.status}</td>}
+                    <td>{station.name}</td>
+                    <td>{station.kota}</td>
                     <td className="">
                       <div className="d-flex">
                         <div>
                           <img onClick={handleShowTicket} src="/images/IconSearch.png" alt="" className="" style={{ cursor: "pointer" }} />
                         </div>
                         <div>
-                          <img onClick={() => handleDelete(data.id)} src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
+                          <img onClick={() => handleDelete(station.id)} src="/images/IconTrash.png" alt="" className="ms-5" style={{ cursor: "pointer" }} />
                         </div>
                       </div>
                     </td>
